@@ -2,6 +2,8 @@ package com.prac.mongodb.service;
 
 import com.prac.mongodb.entity.Employee;
 import com.prac.mongodb.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +54,11 @@ public class EmployeeService {
 
     public List<Employee> getEmployeesByDesignation(String designation) {
        return this.employeeRepository.findAllByPosition(designation);
+    }
+
+    public List<Employee> getEmployeesByPagination(int pageNo, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNo,pageSize,Sort.by("experience").ascending());
+        Page<Employee> pagingEmployees = employeeRepository.findAll(pageRequest);
+        return pagingEmployees.getContent();
     }
 }

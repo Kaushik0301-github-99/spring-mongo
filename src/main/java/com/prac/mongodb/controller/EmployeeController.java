@@ -47,4 +47,8 @@ public class EmployeeController {
     public List<Employee> getEmployeeBasisOnDesignation(@RequestParam String designation){
         return employeeService.getEmployeesByDesignation(designation);
     }
+    @GetMapping("/paged")
+    public List<Employee> getEmployeesByPaginationSortByExperience(@RequestParam int pageNo,@RequestParam int pageSize){
+        return employeeService.getEmployeesByPagination(pageNo,pageSize);
+    }
 }
